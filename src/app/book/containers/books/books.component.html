@@ -1,0 +1,20 @@
+<div class="filter-bar flex shadow-xl bg-base-100 gap-5 p-3 rounded-xl backdrop-filter backdrop-blur-lg bg-opacity-80 mb-5 sticky top-16 z-50">
+  <input type="text" placeholder="Search a book" [formControl]="inputFilter" class="input input-bordered w-full max-w-xs" />
+  <div class="join">
+    <button class="btn btn-circle join-item" [ngClass]="{'btn-neutral': this.view == 'grid'}" (click)="this.selectView('grid')">
+      <i class="fi fi-rr-apps"></i>
+    </button>
+    <button class="btn btn-circle join-item" [ngClass]="{'btn-neutral': this.view == 'list'}" (click)="this.selectView('list')">
+      <i class="fi fi-rr-table-list"></i>
+    </button>
+  </div>
+</div>
+<ng-container *ngIf="books$ | async as books">
+  <ng-container *ngIf="(books | filterBooksBy:inputFilter.value ?? '') as books">
+    <app-book-table *ngIf="view =='list'; else gridBlock " [books]="books" />
+    <ng-template #gridBlock>
+        <app-book-grid [books]="books"/>
+    </ng-template>
+  </ng-container>
+</ng-container>
+

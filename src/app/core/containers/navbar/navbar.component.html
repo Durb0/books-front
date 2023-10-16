@@ -1,0 +1,22 @@
+<div class="navbar-start">
+  <a class="btn gap-0 font-extrabold btn-ghost normal-case text-xl">
+    <span class="text-secondary">V</span>
+    <span class="text-primary">Books</span>
+  </a>
+</div>
+<div class="navbar-end">
+  <label class="btn btn-circle btn-ghost swap swap-rotate" (click)="switchTheme()">
+    <!-- this hidden checkbox controls the state -->
+    <input type="checkbox" [formControl]="switchForTheme"/>
+    <!-- sun icon -->
+    <div class="swap-on" >
+        <i class="fi fi-rr-sun"></i>
+    </div>
+    <!-- moon icon -->
+    <div class="swap-off">
+        <i class="fi fi-rr-moon" ></i>
+    </div>
+  </label>
+</div>
+
+

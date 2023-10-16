@@ -1,0 +1,14 @@
+<figure class="h-[300px] bg-base-300">
+  <img [src]="image" [alt]="book.title" class="object-cover"  />
+</figure>
+<div class="card-body">
+  <h2 class="card-title">
+    {{book.title}}
+    <div class="badge badge-neutral">{{book.date}}</div>
+  </h2>
+  <p>{{book.description}}</p>
+  <div class="card-actions justify-end">
+    <button class="btn text-secondary">See more</button>
+    <button class="btn btn-primary">Buy me</button>
+  </div>
+</div>
