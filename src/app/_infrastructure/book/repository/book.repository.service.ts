@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Observable, of} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {BookBo} from "../../../book/book.model";
 import {BookDTO} from "../book.interface";
 import {HttpClient} from "@angular/common/http";
 import {BookMapperService} from "../mapper/book.mapper.service";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -12,99 +13,13 @@ export class BookRepositoryService {
 
   private baseUrl = "/api";
 
-  private booksDtos: BookDTO[] = [
-    {
-      id: 0,
-      titre: "Harry Potter",
-      auteur: "J.K Rowling",
-      description: "un livre de sorciers",
-      date: 1997,
-    },
-    {
-      id: 1,
-      titre: "Blade Runner",
-      auteur: "osef",
-      description: "un livre dans le futur",
-      date: 1968
-    },
-    {
-      id: 0,
-      titre: "Harry Potter",
-      auteur: "J.K Rowling",
-      description: "un livre de sorciers",
-      date: 1997,
-    },
-    {
-      id: 1,
-      titre: "Blade Runner",
-      auteur: "osef",
-      description: "un livre dans le futur",
-      date: 1968
-    },
-    {
-      id: 0,
-      titre: "Harry Potter",
-      auteur: "J.K Rowling",
-      description: "un livre de sorciers",
-      date: 1997,
-    },
-    {
-      id: 1,
-      titre: "Blade Runner",
-      auteur: "osef",
-      description: "un livre dans le futur",
-      date: 1968
-    },
-    {
-      id: 0,
-      titre: "Harry Potter",
-      auteur: "J.K Rowling",
-      description: "un livre de sorciers",
-      date: 1997,
-    },
-    {
-      id: 1,
-      titre: "Blade Runner",
-      auteur: "osef",
-      description: "un livre dans le futur",
-      date: 1968
-    },
-    {
-      id: 0,
-      titre: "Harry Potter",
-      auteur: "J.K Rowling",
-      description: "un livre de sorciers",
-      date: 1997,
-    },
-    {
-      id: 1,
-      titre: "Blade Runner",
-      auteur: "osef",
-      description: "un livre dans le futur",
-      date: 1968
-    },
-    {
-      id: 0,
-      titre: "Harry Potter",
-      auteur: "J.K Rowling",
-      description: "un livre de sorciers",
-      date: 1997,
-    },
-    {
-      id: 1,
-      titre: "Blade Runner",
-      auteur: "osef",
-      description: "un livre dans le futur",
-      date: 1968
-    },
-  ]
-
   constructor(
     private http: HttpClient
   ) { }
 
   get books$(): Observable<BookBo[]>{
-      let bookDTOs: BookDTO[] = this.booksDtos;
-      return of(BookMapperService.toBos(bookDTOs))
+      return this.http.get<BookDTO[]>(environment.apiUrl + this.baseUrl + '/livres').pipe(
+        map((bookDTOs: BookDTO[]) => bookDTOs.map((bookDTO: BookDTO) => BookMapperService.toBo(bookDTO))
+      ));
   }
 }
